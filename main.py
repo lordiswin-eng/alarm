@@ -99,7 +99,7 @@ import httpx
 # Arka planda 10 dakikada bir kendi Render URL'sine istek atan fonksiyon
 async def keep_alive_self_ping():
     # Kendi Render URL'niz
-    RENDER_URL = "https://srv-datl70ek1f9s738nemn0.onrender.com"
+    RENDER_URL = "https://alarm-jbkc.onrender.com"
     
     async with httpx.AsyncClient() as client:
         while True:
