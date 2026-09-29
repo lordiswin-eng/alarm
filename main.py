@@ -62,10 +62,10 @@ async def check_high_gainers(context: ContextTypes.DEFAULT_TYPE):
         res = get_symbol_change(symbol)
         if res:
             change_percent, last_price = res
-            if change_percent >= 15.0 and symbol not in NOTIFIED_SYMBOLS:
+            if change_percent >= 3.0 and symbol not in NOTIFIED_SYMBOLS:
                 NOTIFIED_SYMBOLS.add(symbol)
                 msg = (
-                    f"🚀 *YÜKSELİŞ SİNYALİ! (%15+)*\n"
+                    f"🚀 *YÜKSELİŞ SİNYALİ! (%3+)*\n"
                     f"━━━━━━━━━━━━━━━━━━━\n"
                     f"📌 *Sembol:* `{symbol}`\n"
                     f"📈 *Günlük Yükseliş:* `%{change_percent:.2f}`\n"
@@ -79,7 +79,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     USER_CHAT_ID = update.effective_chat.id
     await update.message.reply_text(
         "🔔 *Yükseliş Alarm Botu Aktif!*\n\n"
-        "Taranan listede %15 ve üzeri yükseliş yaşandığında buradan anlık bildirim alacaksınız.",
+        "Taranan listede %3 ve üzeri yükseliş yaşandığında buradan anlık bildirim alacaksınız.",
         parse_mode="Markdown"
     )
 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start))
     
     # 15 dakikada bir tarama yapar (900 saniye)
-    app.job_queue.run_repeating(check_high_gainers, interval=900, first=10)
+    app.job_queue.run_repeating(check_high_gainers, interval=600, first=10)
     
     app.run_polling(drop_pending_updates=True)
   
